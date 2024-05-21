@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node-dev --ignore-watch node_modules src/server.ts",
+    "typeorm": "typeorm-ts-node-commonjs",
+    "typeorm:generate": "typeorm-ts-node-commonjs migration:generate -d src/data-source",
+    "typeorm:run": "typeorm-ts-node-commonjs migration:run -d src/data-source"
   },
   "keywords": [],
   "author": "",
