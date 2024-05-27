@@ -14,9 +14,9 @@ const dataSourceConfig = (): DataSourceOptions => {
         url: dbUrl,
         logging: true,
         entities: [entityPath],
-        migrations: [migrationPath] 
+        migrations: [migrationPath]
     };
 };
 
-export const AppDataSource = new DataSource(dataSourceConfig());   
+export const AppDataSource = new DataSource(dataSourceConfig());
 

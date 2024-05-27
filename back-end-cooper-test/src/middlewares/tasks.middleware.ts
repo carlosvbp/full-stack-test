@@ -1,11 +1,18 @@
 import { NextFunction, Request, Response } from "express";
-import { taskRepo } from "../repositories";
 import AppError from "../errors/AppErrors.error";
-import Task from "../entities/Task.entity";
+import { taskRepo } from "../repositories";
 
 export const verifyTaskExists = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    const { id } = req.params;
-    const task: Task | null = await taskRepo.findOneBy({id: Number(id)});
-    if(!task) throw new AppError("Task not found.", 404);
+    const taskId: number = Number(req.params.id);
+    const task = await taskRepo.findOne({
+        where: {
+            id: taskId
+        },
+        relations: {
+            user: true
+        }
+    });
+    if (!task) throw new AppError("Task not found", 404);
+    res.locals.task = task;
     return next();
-}   
+};   

@@ -6,7 +6,7 @@ export default class Task {
     @PrimaryGeneratedColumn("increment")
     id: number;
 
-    @Column({length: 120})
+    @Column({ length: 120 })
     name: string;
 
     @ManyToOne(() => User, user => user.tasks)
