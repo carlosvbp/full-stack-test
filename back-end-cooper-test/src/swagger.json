@@ -1,0 +1,555 @@
+{
+    "openapi": "3.1.1",
+    "info": {
+        "title": "Lista de afazeres",
+        "description": "to-do list",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000",
+            "description": "Development env"
+        },
+        {
+            "url": "https://onrender-candies-api.com",
+            "description": "Production env"
+        }
+    ],
+    "paths": {
+        "/users": {
+            "get": {
+                "description": "Rota responsável por buscar todos os usuários cadastrados.",
+                "tags": [
+                    "User"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array"
+                                },
+                                "examples": {
+                                    "response": {
+                                        "value": [
+                                            {
+                                                "id": 1,
+                                                "nickname": "vinicius",
+                                                "createdAt": "2024-05-25"
+                                            },
+                                            {
+                                                "id": 2,
+                                                "nickname": "joaoneto",
+                                                "createdAt": "2023-09-12"
+                                            },
+                                            {
+                                                "id": 3,
+                                                "nickname": "mateuscastro",
+                                                "createdAt": "2022-01-03"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {}
+                ]
+            },
+            "post": {
+                "description": "Rota responsável por cadastrar o usuário.",
+                "tags": [
+                    "User"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/createUser"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/readUser"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "conflictError": {
+                                        "value": {
+                                            "message": "Nickname alread exists"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {}
+                ]
+            }
+        },
+        "/users/:<userId>": {
+            "delete": {
+                "description": "Rota responsável por deletar o usuário.",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "number"
+                        },
+                        "in": "query",
+                        "description": "Id do usuário",
+                        "name": "id"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "notFoundError": {
+                                        "value": {
+                                            "message": "User not found."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Insufficient Permissions",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "notFoundError": {
+                                        "value": {
+                                            "message": "Insufficient Permissions"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "notFoundError": {
+                                        "value": {
+                                            "message": "Missing bearer token"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "description": "Rota responsável por logar o usuário cadastrado.",
+                "tags": [
+                    "Login"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/createUser"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "response": {
+                                        "value": {
+                                            "token": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "unauthorizedError": {
+                                        "value": {
+                                            "message": "Invalid credentials"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {}
+                ]
+            }
+        },
+        "/tasks": {
+            "get": {
+                "description": "Rota responsável por buscar todos as tarefas do usuário logado.",
+                "tags": [
+                    "Task"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array"
+                                },
+                                "examples": {
+                                    "response": {
+                                        "value": [
+                                            {
+                                                "id": 1,
+                                                "name": "Almoçar às 12:00"
+                                            },
+                                            {
+                                                "id": 2,
+                                                "name": "Academia às 18:00"
+                                            },
+                                            {
+                                                "id": 3,
+                                                "name": "Dormir às 22:00"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "notFoundError": {
+                                        "value": {
+                                            "message": "Missing bearer token"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Rota responsável por criar tarefas do usuário.",
+                "tags": [
+                    "Task"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/createTask"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/readTask"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "notFoundError": {
+                                        "value": {
+                                            "message": "Missing bearer token"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "security": [
+                        {}
+                    ]
+                }
+            }
+        },
+        "/task/:<taskId>": {
+            "patch": {
+                "description": "Rota responsável por atualizar as tarefas do usuário.",
+                "tags": [
+                    "Task"
+                ],
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "number"
+                        },
+                        "in": "query",
+                        "description": "Id da tarefa",
+                        "name": "id"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/createTask"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/readTask"
+                                },
+                                "examples": {
+                                    "response": {
+                                        "value": {
+                                            "id": {
+                                                "type": "number"
+                                            },
+                                            "name": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "notFoundError": {
+                                        "value": {
+                                            "message": "Task not found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "notFoundError": {
+                                        "value": {
+                                            "message": "Missing bearer token"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Rota responsável por deletar as tarefas.",
+                "tags": [
+                    "Task"
+                ],
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "number"
+                        },
+                        "in": "query",
+                        "description": "Id da tarefa",
+                        "name": "id"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "notFoundError": {
+                                        "value": {
+                                            "message": "Task not found."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "notFoundError": {
+                                        "value": {
+                                            "message": "Missing bearer token"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "createUser": {
+                "type": "object",
+                "properties": {
+                    "nickname": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            },
+            "readAllUser": {
+                "type": "object",
+                "properties": [
+                    {
+                        "id": {
+                            "type": "number"
+                        },
+                        "nickname": {
+                            "type": "string"
+                        },
+                        "createdAt": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "id": {
+                            "type": "number"
+                        },
+                        "nickname": {
+                            "type": "string"
+                        },
+                        "createdAt": {
+                            "type": "string"
+                        }
+                    }
+                ]
+            },
+            "createTask": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    }
+                }
+            },
+            "readUser": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "nickname": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "type": "string"
+                    }
+                }
+            },
+            "readAllTasks": {
+                "type": "array",
+                "properties": [
+                    {
+                        "id": {
+                            "type": "number"
+                        },
+                        "name": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "id": {
+                            "type": "number"
+                        },
+                        "name": {
+                            "type": "string"
+                        }
+                    }
+                ]
+            },
+            "readTask": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        {
+            "JWT": []
+        }
+    ]
+}

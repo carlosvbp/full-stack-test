@@ -1,7 +1,10 @@
 import { Router } from "express";
-import { validateBody, verifyPermissions, verifyToken } from "../middlewares/globals.middleware";
+import { validateBody, verifyToken } from "../middlewares/globals.middleware";
 import { verifyTaskExists } from "../middlewares/tasks.middleware";
-import { createTaskController, deleteTaskController, readAllTasksController, updateTaskController } from "../controllers/tasks.controller";
+import {
+    createTaskController, deleteTaskController,
+    readAllTasksController, updateTaskController
+} from "../controllers/tasks.controller";
 import { createTaskSchema, updateTaskSchema } from "../schemas/tasks.schema";
 
 export const taskRouter: Router = Router();

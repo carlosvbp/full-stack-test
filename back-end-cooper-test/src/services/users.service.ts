@@ -16,4 +16,4 @@ export const readAllUsersService = async (): Promise<UserReturnList> => {
 
 export const deleteUserService = async (user: User): Promise<void> => {
     await userRepo.remove(user);
-}
+};

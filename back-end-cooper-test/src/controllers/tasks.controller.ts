@@ -21,7 +21,7 @@ export const updateTaskController = async (req: Request, res: Response): Promise
     const data: TaskBodyUpdate = req.body;  
     const updatedTask = await updateTaskService(data, task);
     return res.status(200).json(updatedTask);
-}
+};
 
 export const deleteTaskController = async (req: Request, res: Response): Promise<Response> => {
     const task: Task  = res.locals.task;

@@ -11,7 +11,7 @@ export const verifyUniqueNickname = async (req: Request, res: Response, next: Ne
 };
 
 export const verifyUserExists = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    const userId: any = req.params.id;
+    const userId: number = Number(req.params.id);
     const user = await userRepo.findOneBy({ id: userId });
     if (!user) throw new AppError("User not found", 400);
     res.locals.user = user;
