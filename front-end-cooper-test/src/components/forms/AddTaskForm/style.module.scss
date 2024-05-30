@@ -1,0 +1,23 @@
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--color-grey);
+    border-radius: 1.875rem;
+    margin-bottom: 1.5625rem;
+    padding-left: 1.25rem;
+
+    input {
+        flex: 1;
+        outline: none;
+        padding: 0.3125rem;
+    }
+
+    button {
+        outline: none;
+        padding: 10px;
+        background: var(--color-secondary);
+        color: var(--color-white);
+        border-radius: 2.5rem;
+    }
+}
