@@ -18,7 +18,7 @@ export const RegisterModal = ({ setIsOpen }: TaskProviderProps) => {
                         <h2>to access your list</h2>
                     </div>
                 </header>
-                <UserRegisterForm />
+                <UserRegisterForm setIsOpen={setIsOpen} />
             </div>
         </div>
     );

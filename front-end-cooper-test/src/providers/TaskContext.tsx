@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useEffect, useState } from "react";
+import { Dispatch, ReactNode, SetStateAction, createContext, useEffect, useState } from "react";
 import { Task, TaskCreate, TaskUpdate } from "../interfaces/tasks.interface"
 import { taskApi } from "../services/api";
 import { toast } from "react-toastify";
@@ -9,11 +9,19 @@ interface TaskProviderProps {
 
 interface TaskContextValues {
     createTask: (data: TaskCreate) => Promise<void>;
-    editTask: (formData: TaskUpdate, taskId: number) => Promise<void>;
+    editTask: (
+        formData: TaskUpdate,
+        taskId: number,
+        setIsOpen: Dispatch<SetStateAction<boolean>>) => Promise<void>
     deleteTask: (taskId: number) => Promise<void>
     tasks: Task[];
     editModalIsOpen: boolean;
     setEditModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    setTasks: Dispatch<SetStateAction<{
+        id: number;
+        name: string;
+    }[]>>;
+    removeAllTasks: () => void;
 };
 
 export const TaskContext = createContext<TaskContextValues>({} as TaskContextValues);
@@ -31,7 +39,7 @@ export const TaskProvider = ({ children }: TaskProviderProps) => {
             setTasks(data)
         } catch (error) {
             console.error("Erro ao buscar tarefas:", error);
-            toast.error("Erro ao buscar tarefas. Tente novamente.");
+            toast.error("Token expirado, logue novamente.");
         };
     };
 
@@ -56,7 +64,11 @@ export const TaskProvider = ({ children }: TaskProviderProps) => {
         }
     };
 
-    const editTask = async (formData: TaskUpdate, taskId: number) => {
+    const editTask = async (
+        formData: TaskUpdate,
+        taskId: number,
+        setIsOpen: Dispatch<SetStateAction<boolean>>
+    ) => {
         try {
             const { data } = await taskApi.patch(`/tasks/${taskId}`, formData, {
                 headers: {
@@ -72,7 +84,7 @@ export const TaskProvider = ({ children }: TaskProviderProps) => {
             });
             setTasks(newTaskList);
             setEditModalIsOpen(false);
-            toast.success("Tarefa editada com sucesso.");
+            setIsOpen(false);
             await getTasks();
         } catch (error) {
             console.error("Erro ao editar tarefa:", error);
@@ -87,12 +99,15 @@ export const TaskProvider = ({ children }: TaskProviderProps) => {
                     Authorization: `Bearer ${token}`
                 }
             });
-            toast.success("Tarefa excluída.");
             setTasks((previusTasks) => previusTasks.filter(task => task.id !== taskId));
         } catch (error) {
             console.error("Erro ao deletar tarefa:", error);
             toast.error("Erro ao deletar tarefa. Tente novamente.");
         };
+    };
+
+    const removeAllTasks = () => {
+        setTasks([]);
     };
 
     return (
@@ -102,7 +117,9 @@ export const TaskProvider = ({ children }: TaskProviderProps) => {
             deleteTask,
             tasks,
             editModalIsOpen,
-            setEditModalIsOpen
+            setEditModalIsOpen,
+            setTasks,
+            removeAllTasks
         }}>
             {children}
         </TaskContext.Provider>

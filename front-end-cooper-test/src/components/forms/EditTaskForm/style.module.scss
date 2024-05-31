@@ -1,0 +1,46 @@
+.row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+
+    .box {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .input {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+
+            label {
+                font-size: var(--subtitle-size);
+                font-weight: var(--subtitle-weight);
+            }
+
+            input {
+                border: 1px solid var(--color-grey-200);
+                border-radius: 10px;
+                padding: 10px;
+            }
+        }
+
+        .signIn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 0 0 0;
+            gap: 20px;
+
+            .loginButton {
+                background: var(--color-primary);
+                color: var(--color-white);
+                padding: 10px;
+                width: 200px;
+            }
+        }
+    }
+}

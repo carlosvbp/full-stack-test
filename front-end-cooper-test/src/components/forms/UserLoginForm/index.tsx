@@ -18,7 +18,7 @@ export const UserLoginForm = () => {
     };
 
     return (
-        <form className={styles.row} >
+        <form className={styles.row} onSubmit={handleSubmit(taskSubmit)}>
             <div className={styles.box}>
                 <div className={styles.input}>
                     <label htmlFor="name">User:</label>
@@ -38,7 +38,6 @@ export const UserLoginForm = () => {
                 </div>
                 <div className={styles.signIn}>
                     <button
-                        onClick={handleSubmit(taskSubmit)}
                         className={styles.loginButton}>
                         {loading ? "entered..." : "Sign in"}
                     </button>

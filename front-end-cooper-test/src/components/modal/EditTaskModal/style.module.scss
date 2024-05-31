@@ -16,7 +16,6 @@
         padding: 2rem;
         background-color: var(--color-white);
 
-
         .closeButton {
             background: transparent;
             color: var(--color-black);
@@ -30,7 +29,7 @@
 
         .subtitle {
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
 
             img {
                 width: 100px;

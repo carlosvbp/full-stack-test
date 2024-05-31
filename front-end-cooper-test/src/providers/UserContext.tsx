@@ -1,25 +1,34 @@
 import { toast } from "react-toastify";
 import { taskApi } from "../services/api";
-import { ReactNode, createContext } from "react";
+import { Dispatch, ReactNode, SetStateAction, createContext } from "react";
 import { UserCreate, UserLogin } from "../interfaces/users.interface";
 
 interface UserProviderProps {
     children: ReactNode;
 };
 interface UserContextValues {
-    userRegister: (formData: UserCreate, setLoading: (loading: boolean) => void) => Promise<void>;
-    userLogin: (formData: UserLogin, setLoading: (loading: boolean) => void) => Promise<void>;
+    userRegister: (
+        formData: UserCreate,
+        setLoading: (loading: boolean) => void,
+        setIsOpen: Dispatch<SetStateAction<boolean>>) => Promise<void>
+    userLogin: (
+        formData: UserLogin,
+        setLoading: (loading: boolean) => void) => Promise<void>;
     userLogout: () => void;
 };
 
 export const UserContext = createContext<UserContextValues>({} as UserContextValues);
 
 export const UserProvider = ({ children }: UserProviderProps) => {
-    const userRegister = async (formData: UserCreate, setLoading: (loading: boolean) => void) => {
+    const userRegister = async (
+        formData: UserCreate,
+        setLoading: (loading: boolean) => void,
+        setIsOpen: Dispatch<SetStateAction<boolean>>) => {
         try {
             setLoading(true);
             await taskApi.post("/users", formData);
             toast.success("Cadastro realizado");
+            setIsOpen(false);
         } catch (error) {
             console.error("Erro ao cadastrar:", error);
             toast.error("Erro ao cadastrar. Tente novamente.");

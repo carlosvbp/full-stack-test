@@ -6,19 +6,23 @@ import { UserCreate } from "../../../interfaces/users.interface";
 import { createUserSchema } from "../../../schemas/users.schema";
 import styles from "./style.module.scss";
 
-export const UserRegisterForm = () => {
+interface UserRegisterFormProps {
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const UserRegisterForm = ({ setIsOpen }: UserRegisterFormProps) => {
     const { register, handleSubmit, formState: { errors } } = useForm<UserCreate>({
         resolver: zodResolver(createUserSchema)
     });
     const [loading, setLoading] = useState(false);
     const { userRegister } = useContext(UserContext);
 
-    const taskSubmit = (data: UserCreate) => {
-        userRegister(data, setLoading);
+    const taskSubmit = (formData: UserCreate) => {
+        userRegister(formData, setLoading, setIsOpen);
     };
 
     return (
-        <form className={styles.row} >
+        <form className={styles.row} onSubmit={handleSubmit(taskSubmit)}>
             <div className={styles.box}>
                 <div className={styles.input}>
                     <label htmlFor="name">User:</label>
@@ -38,7 +42,6 @@ export const UserRegisterForm = () => {
                 </div>
                 <div className={styles.register}>
                     <button
-                        onClick={handleSubmit(taskSubmit)}
                         className={styles.loginButton}>
                         {loading ? "Registering..." : "Register"}
                     </button>
