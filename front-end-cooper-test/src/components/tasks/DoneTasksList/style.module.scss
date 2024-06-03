@@ -1,4 +1,4 @@
-.listContainer li {
+.listContainer .taskCard {
     padding: 12px 8px 12px 50px;
     user-select: none;
     cursor: pointer;
@@ -10,17 +10,17 @@
     z-index: 4;
 
     & p:hover::before {
-        background-image: url("../../assets/Delete icon.png");
+        background-image: url("../../../assets/Delete icon.png");
     }
 }
 
-.listContainer li p::before {
+.listContainer .taskCard p::before {
     content: "";
     position: absolute;
     height: 28px;
     width: 28px;
     border-radius: 50%;
-    background-image: url("../../assets/Ellipse 1.png");
+    background-image: url("../../../assets/Ellipse 1.png");
     background-size: cover;
     background-position: center;
     top: 17px;
@@ -28,21 +28,21 @@
     z-index: 5;
 }
 
-.listContainer li p.checked {
+.listContainer .taskCard p.checked {
     font-weight: var(--title-weight);
     text-decoration: line-through;
 }
 
-.listContainer li p.checked::before {
-    background-image: url("../../assets/Vector.png");
+.listContainer .taskCard p.checked::before {
+    background-image: url("../../../assets/Vector.png");
 }
 
-.listContainer li div {
+.listContainer .taskCard div {
     display: flex;
     gap: 10px;
 }
 
-.listContainer li div span {
+.listContainer .taskCard div span {
     color: var(--color-grey-100);
     font-size: var(--hover-size);
     font-weight: var(--title-weight);
@@ -54,11 +54,11 @@
     text-align: center;
 }
 
-.listContainer li div span:hover {
+.listContainer .taskCard div span:hover {
     background: var(--color-grey);
 }
 
-.listContainer .removeAll {
+.removeAll {
     background: var(--color-black);
     color: var(--color-white);
     padding: 18px;

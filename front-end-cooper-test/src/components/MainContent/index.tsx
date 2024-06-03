@@ -1,8 +1,9 @@
 import styles from "./style.module.scss";
-import TaskList from "../TasksList";
 import { AddTaskForm } from "../forms/AddTaskForm";
 import { useContext } from "react";
 import { TaskContext } from "../../providers/TaskContext";
+import { DoneTasksList } from "../tasks/DoneTasksList";
+import { TasksList } from "../tasks/TasksList";
 
 export const MainContent = () => {
     const { tasks } = useContext(TaskContext);
@@ -27,7 +28,7 @@ export const MainContent = () => {
                             </div>
                         </header>
                         <AddTaskForm />
-                        <TaskList />
+                        <TasksList />
                     </article>
                 </section>
                 <section className={styles.tasksDone}>
@@ -39,10 +40,13 @@ export const MainContent = () => {
                                 <span>You have done {tasks.length} tasks.</span>
                             </div>
                         </header>
+                        <DoneTasksList />
                     </article>
                 </section>
             </section>
         </main>
     );
 };
+
+
 

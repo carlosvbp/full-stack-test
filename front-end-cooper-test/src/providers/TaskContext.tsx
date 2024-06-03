@@ -15,12 +15,15 @@ interface TaskContextValues {
         setIsOpen: Dispatch<SetStateAction<boolean>>) => Promise<void>
     deleteTask: (taskId: number) => Promise<void>
     tasks: Task[];
+    doneTasks: Task[];
     editModalIsOpen: boolean;
     setEditModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
     setTasks: Dispatch<SetStateAction<{
         id: number;
         name: string;
+        done: boolean
     }[]>>;
+    setDoneTasks: Dispatch<SetStateAction<Task[]>>;
     removeAllTasks: () => void;
 };
 
@@ -28,6 +31,7 @@ export const TaskContext = createContext<TaskContextValues>({} as TaskContextVal
 
 export const TaskProvider = ({ children }: TaskProviderProps) => {
     const [tasks, setTasks] = useState([] as Task[]);
+    const [doneTasks, setDoneTasks] = useState<Task[]>([]);
     const [editModalIsOpen, setEditModalIsOpen] = useState(false)
 
     const token = localStorage.getItem("@TOKEN");
@@ -36,10 +40,11 @@ export const TaskProvider = ({ children }: TaskProviderProps) => {
         taskApi.defaults.headers.common.Authorization = `Bearer ${token}`;
         try {
             const { data } = await taskApi.get("/tasks");
-            setTasks(data)
+            setTasks(data.filter((task: Task) => !task.done));
+            setDoneTasks(data.filter((task: Task) => task.done));
         } catch (error) {
             console.error("Erro ao buscar tarefas:", error);
-            toast.error("Token expirado, logue novamente.");
+            /* toast.error("Token expirado, logue novamente."); */
         };
     };
 
@@ -100,6 +105,7 @@ export const TaskProvider = ({ children }: TaskProviderProps) => {
                 }
             });
             setTasks((previusTasks) => previusTasks.filter(task => task.id !== taskId));
+            setDoneTasks(prevDoneTasks => prevDoneTasks.filter(task => task.id !== taskId));
         } catch (error) {
             console.error("Erro ao deletar tarefa:", error);
             toast.error("Erro ao deletar tarefa. Tente novamente.");
@@ -108,6 +114,7 @@ export const TaskProvider = ({ children }: TaskProviderProps) => {
 
     const removeAllTasks = () => {
         setTasks([]);
+        setDoneTasks([]);
     };
 
     return (
@@ -116,9 +123,11 @@ export const TaskProvider = ({ children }: TaskProviderProps) => {
             editTask,
             deleteTask,
             tasks,
+            doneTasks,
             editModalIsOpen,
             setEditModalIsOpen,
             setTasks,
+            setDoneTasks,
             removeAllTasks
         }}>
             {children}
