@@ -1,3 +1,4 @@
+```js
 <h3>Documentação swagger</h3>
 
 <h4>https://full-stack-test-krxw.onrender.com/api-documentation/</h4>
@@ -43,6 +44,7 @@
 }
 ``` 
 
+```js
 <h4>comando para gerar a migração:<h4>
 <h3>npm run typeorm:generate src/migrations/nomeDaMigration<h3>
 
@@ -63,3 +65,12 @@
 <h3>DATABASE_URL="postgres://user:password@host:port/db"<h3>
 <h3>SECRET_KEY=JWTSecret<h3>
 <h3>EXPIRES_IN=jwt_expires_in<h3>
+
+
+<h3>Relacionamentos:</h3>
+
+<h4>
+Criaram duas entidades, uma para usuário e outra para tarefas, ocorre
+relacionamento OneToMany entre usuário e tarefas que são atreladas à ele.
+</h4>
+```
