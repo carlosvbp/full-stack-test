@@ -25,6 +25,7 @@ interface TaskContextValues {
     }[]>>;
     setDoneTasks: Dispatch<SetStateAction<Task[]>>;
     removeAllTasks: () => void;
+    getTasks: () => Promise<void>
 };
 
 export const TaskContext = createContext<TaskContextValues>({} as TaskContextValues);
@@ -128,7 +129,8 @@ export const TaskProvider = ({ children }: TaskProviderProps) => {
             setEditModalIsOpen,
             setTasks,
             setDoneTasks,
-            removeAllTasks
+            removeAllTasks,
+            getTasks
         }}>
             {children}
         </TaskContext.Provider>

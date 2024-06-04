@@ -11,13 +11,14 @@
 
     .headerButtons {
         display: flex;
-        gap: 10px;
+        gap: 20px;
 
         .loginButton {
             padding: 10px;
             width: 120px;
             background: var(--color-black);
             color: var(--color-white);
+            z-index: 10;
         }
 
         .registerButton {
@@ -25,6 +26,19 @@
             width: 120px;
             background: var(--color-black);
             color: var(--color-white);
+            z-index: 10;
+        }
+    }
+}
+
+@media screen and (min-width: 700px) {
+    .header {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 40px 80px;
+
+        .headerButtons {
+            gap: 40px;
         }
     }
 }

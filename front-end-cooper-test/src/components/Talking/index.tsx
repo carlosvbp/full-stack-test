@@ -1,6 +1,7 @@
 import styles from "./style.module.scss";
-/* import logo from "../../assets/BG.png";
-import table from "../../assets/table.png"; */
+import logo from "../../assets/BG.png";
+import table from "../../assets/table.png";
+import { Link } from 'react-scroll';
 
 export const Talking = () => {
     return (
@@ -12,13 +13,18 @@ export const Talking = () => {
                 </div>
                 <div className={styles.subtitle}>
                     <p>The only way to get things done</p>
-                    <button>Go to To-do list</button>
+                    <Link
+                        to="tasks"
+                        smooth={true}
+                        duration={500}>
+                        <button>Go to To-do list</button>
+                    </Link>
                 </div>
             </div>
-            {/* <div >
+            <div className={styles.images}>
                 <img className={styles.logo} src={logo} alt="logo" />
                 <img className={styles.table} src={table} alt="table" />
-            </div> */}
+            </div>
         </section>
     );
 };

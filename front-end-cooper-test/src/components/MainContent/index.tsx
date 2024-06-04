@@ -5,6 +5,7 @@ import { TaskContext } from "../../providers/TaskContext";
 import { TasksList } from "../tasks/TasksList";
 import { DoneTasksList } from "../tasks/DoneTasksList";
 import { DragDropContext, DropResult } from "@hello-pangea/dnd";
+import banner from "../../assets/banner.png";
 
 export const MainContent = () => {
     const { tasks, doneTasks, setTasks, setDoneTasks } = useContext(TaskContext);
@@ -52,7 +53,8 @@ export const MainContent = () => {
     return (
         <main className={styles.container}>
             <header className={styles.topic}>
-                <h1>To-do List</h1>
+                <img className={styles.banner} src={banner} alt="banner" />
+                <h1 id="tasks">To-do List</h1>
                 <p>
                     Drag and drop to set your main priorities,
                     check when done and create what´s new.

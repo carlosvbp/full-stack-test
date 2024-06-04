@@ -46,22 +46,104 @@ section {
         }
     }
 
-    div {
-        max-height: 370px;
+    .images {
+        display: none;
+    }
+}
 
-        .logo {
-            position: relative;
-            width: 100vw;
-            top: 30px;
-            z-index: 1;
+
+@media screen and (min-width: 700px) {
+    section {
+        padding: 40px 80px;
+        align-items: baseline;
+        position: relative;
+
+        div {
+            .title {
+                display: flex;
+                flex-direction: column;
+                align-items: baseline;
+            }
+
+            .subtitle {
+                display: flex;
+                flex-direction: column;
+                align-items: baseline;
+                padding-top: 40px;
+                gap: 15px;
+
+            }
         }
 
-        .table {
-            height: 250px;
-            position: relative;
-            bottom: 285px;
-            left: 50px;
-            z-index: 2;
+        .images {
+            display: block;
+            width: 100%;
+
+            & .logo {
+                position: absolute;
+                width: 45%;
+                right: 0;
+                bottom: 1px;
+                z-index: 1;
+                max-width: 320px;
+            }
+
+            & .table {
+                position: absolute;
+                width: 30%;
+                right: 0;
+                margin-right: 60px;
+                bottom: 70px;
+                z-index: 2;
+                max-width: 210px;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    section {
+        div {
+            .title {
+                h1 {
+                    font-size: var(--max-size);
+                }
+
+                h2 { font-size: var(--logo-size);}
+            }
+
+            .subtitle {
+                display: flex;
+                flex-direction: column;
+                align-items: baseline;
+                padding-top: 40px;
+                gap: 15px;
+
+            }
+        }
+
+        .images {
+            display: block;
+            width: 100%;
+
+            & .logo {
+                position: absolute;
+                width: 45%;
+                right: 0;
+                bottom: 1px;
+                z-index: 1;
+                max-width: 320px;
+            }
+
+            & .table {
+                position: absolute;
+                width: 30%;
+                right: 0;
+                margin-right: 60px;
+                bottom: 70px;
+                z-index: 2;
+                max-width: 210px;
+            }
         }
     }
 }

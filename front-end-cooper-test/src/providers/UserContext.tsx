@@ -1,7 +1,8 @@
 import { toast } from "react-toastify";
 import { taskApi } from "../services/api";
-import { Dispatch, ReactNode, SetStateAction, createContext } from "react";
+import { Dispatch, ReactNode, SetStateAction, createContext, useContext } from "react";
 import { UserCreate, UserLogin } from "../interfaces/users.interface";
+import { TaskContext } from "./TaskContext";
 
 interface UserProviderProps {
     children: ReactNode;
@@ -17,9 +18,12 @@ interface UserContextValues {
     userLogout: () => void;
 };
 
+
 export const UserContext = createContext<UserContextValues>({} as UserContextValues);
 
 export const UserProvider = ({ children }: UserProviderProps) => {
+    const { getTasks } = useContext(TaskContext);
+
     const userRegister = async (
         formData: UserCreate,
         setLoading: (loading: boolean) => void,
@@ -29,6 +33,8 @@ export const UserProvider = ({ children }: UserProviderProps) => {
             await taskApi.post("/users", formData);
             toast.success("Cadastro realizado");
             setIsOpen(false);
+            localStorage.removeItemItem("@TOKEN");
+            getTasks();
         } catch (error) {
             console.error("Erro ao cadastrar:", error);
             toast.error("Erro ao cadastrar. Tente novamente.");
