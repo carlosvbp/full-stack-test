@@ -1,0 +1,28 @@
+.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 0;
+    height: 180px;
+    gap: 15px;
+    background: var(--color-black);
+    color: var(--color-white);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+
+    h2 {
+        font-size: var(--title-values);
+    }
+
+    p {
+        font-size: var(--body-size);
+        font-weight: var(--paragraph-weight);
+    }
+
+    img {
+        bottom: 0;
+        width: 60%;
+        position: fixed;
+    }
+}

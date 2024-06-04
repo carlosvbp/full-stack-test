@@ -1,5 +1,5 @@
 import { Task } from "../../../../interfaces/tasks.interface";
-import styles from "../style.module.scss"
+import styles from "../style.module.scss";
 import { Draggable } from "@hello-pangea/dnd";
 
 interface TaskCardProps {
@@ -17,6 +17,7 @@ export const DoneTaskCard = ({ task, index }: TaskCardProps) => {
                     ref={provided.innerRef}
                     className={styles.taskCard}
                 >
+                    <p>{task.name}</p>
                 </li>
             )}
         </Draggable>

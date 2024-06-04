@@ -1,6 +1,6 @@
 import styles from "./style.module.scss";
-import logo from "../../assets/BG.png";
-import table from "../../assets/table.png";
+/* import logo from "../../assets/BG.png";
+import table from "../../assets/table.png"; */
 
 export const Talking = () => {
     return (
@@ -15,10 +15,10 @@ export const Talking = () => {
                     <button>Go to To-do list</button>
                 </div>
             </div>
-            <div >
+            {/* <div >
                 <img className={styles.logo} src={logo} alt="logo" />
                 <img className={styles.table} src={table} alt="table" />
-            </div>
+            </div> */}
         </section>
     );
 };

@@ -1,0 +1,47 @@
+.aboutList {
+    display: flex;
+    overflow-x: scroll;
+    gap: 20px;
+    padding: 15px;
+
+    .aboutCard {
+        background: var(--color-white);
+        box-shadow: 0 4px 12px rgba(66, 66, 66, 0.3985);
+        transition: box-shadow 0.3s ease;
+        width: 300px;
+        border-radius: 10px;
+        flex-shrink: 0;
+
+        .aboutImage {
+            max-width: 100%;
+        }
+
+        .about {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            padding: 15px;
+            gap: 10px;
+
+            button {
+                color: var(--color-border);
+                border: 1px solid var(--color-border);
+                border-radius: 16px;
+                padding: 7px 12px;
+            }
+
+            p {
+                font-weight: var(--subtitle-weight);
+                padding: 10px 0;
+            }
+
+            span {
+                color: var(--color-primary);
+                font-weight: var(--subtitle-weight);
+
+            }
+
+        }
+    }
+}

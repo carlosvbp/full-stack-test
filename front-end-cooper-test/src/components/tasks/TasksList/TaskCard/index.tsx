@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Task } from "../../../../interfaces/tasks.interface";
-import styles from "../style.module.scss"
+import styles from "../style.module.scss";
 import { TaskContext } from "../../../../providers/TaskContext";
 import { EditTaskModal } from "../../../modal/EditTaskModal";
 import { Draggable } from "@hello-pangea/dnd";
@@ -15,6 +15,7 @@ export const TaskCard = ({ task, index }: TaskCardProps) => {
     const [editTaskModalIsOpen, editTaskModalSetIsOpen] = useState(false);
 
     const [isChecked, setIsChecked] = useState(false);
+
     useEffect(() => {
         const checkedTasks = JSON.parse(localStorage.getItem('checkedTasks') || '{}');
         setIsChecked(!!checkedTasks[task.id]);
@@ -35,7 +36,9 @@ export const TaskCard = ({ task, index }: TaskCardProps) => {
                     ref={provided.innerRef}
                     className={styles.taskCard}
                 >
-                    <p className={isChecked ? styles.checked : ""} onClick={handleCheck}>
+                    <p 
+                    className={isChecked ? styles.checked : ""}
+                     onClick={handleCheck}>
                         {task.name}
                     </p>
                     <div>
