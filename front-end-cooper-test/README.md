@@ -1,4 +1,25 @@
-# React + TypeScript + Vite
+```js
+-------------------------------- FRONT ---------------------------------
+É preciso:
+-instalar todas dependências no seu código com npm install
+-rodar servidor | Ex: (NPM RUN DEV)
+
+LINK PRODUÇÃO - "https://full-stack-test-krxw.onrender.com"
+
+CRUD -> O FRONT ESTÁ FAZENDO:
+
+-Cadastro de usuário;
+-Login de usuário;
+-Criação de tasks;
+-Leitura de tasks;
+-Atualização de tasks;
+-Deleção de tasks;
+
+
+OBS -> Na lógica implementada, é preciso cadastrar e logar, para depois criar a task.
+
+
+# React + Typescript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
@@ -13,7 +34,7 @@ If you are developing a production application, we recommend updating the config
 
 - Configure the top-level `parserOptions` property like this:
 
-```js
+
 export default {
   // other rules...
   parserOptions: {
@@ -23,8 +44,9 @@ export default {
     tsconfigRootDir: __dirname,
   },
 }
-```
+
 
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+```
