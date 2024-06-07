@@ -33,7 +33,6 @@ export const UserProvider = ({ children }: UserProviderProps) => {
             await taskApi.post("/users", formData);
             toast.success("Cadastro realizado");
             setIsOpen(false);
-            localStorage.removeItemItem("@TOKEN");
             getTasks();
         } catch (error) {
             console.error("Erro ao cadastrar:", error);
