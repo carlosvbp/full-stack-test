@@ -15,7 +15,6 @@ interface UserContextValues {
     userLogin: (
         formData: UserLogin,
         setLoading: (loading: boolean) => void) => Promise<void>;
-    userLogout: () => void;
 };
 
 
@@ -58,17 +57,10 @@ export const UserProvider = ({ children }: UserProviderProps) => {
         };
     };
 
-    const userLogout = () => {
-        toast.warning("Deslogando...");
-        localStorage.removeItem("@TOKEN");
-        window.location.reload();
-    };
-
     return (
         <UserContext.Provider value={{
             userRegister,
-            userLogin,
-            userLogout
+            userLogin
         }}>
             {children};
         </UserContext.Provider>
